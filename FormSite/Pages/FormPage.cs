@@ -5,12 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using log4net;
 
 namespace FormSite.Pages
 {
-    class FormPage
+    class FormPage : BasePage
     {
-        private const string BASE_URL = "https://fs28.formsite.com/res/formPassword";
+        private const string BASE_URL = "https://fs28.formsite.com/esDR1H/form1/index.html";
+        private const string TITLE = "James' form";
         private IWebDriver driver;
 
         [FindsBy(How = How.Id, Using = "RESULT_TextField-0")]
@@ -25,7 +28,7 @@ namespace FormSite.Pages
         [FindsBy(How = How.Id, Using = "RESULT_TextField-3")]
         private IWebElement dateInput;
 
-        [FindsBy(How = How.Id, Using = "RESULT_TextField-4")]
+        [FindsBy(How = How.Name, Using = "RESULT_TextArea-4")]
         private IWebElement interestsTextArea;
 
         [FindsBy(How = How.Id, Using = "FSsubmit")]
@@ -37,15 +40,32 @@ namespace FormSite.Pages
             PageFactory.InitElements(this.driver, this);
         }
 
-        public void submitData(String firstname, String lastname, String emailAddress,
-            String date, String intrests)
+        public String GetUrl()
+        {
+            return BASE_URL;
+        }
+
+        public SuccessPage SubmitData(String firstname, String lastname, String emailAddress,
+            String date, String intrestDescription)
         {
             firstnameInput.SendKeys(firstname);
             lastnameInput.SendKeys(lastname);
             emailAddressInput.SendKeys(emailAddress);
             dateInput.SendKeys(date);
-            interestsTextArea.SendKeys(intrests);
+            interestsTextArea.SendKeys(intrestDescription);
             submitButton.Click();
+            return new SuccessPage(driver);
+        }
+
+        public void OpenPage(String url)
+        {
+            driver.Navigate().GoToUrl(BASE_URL);
+            Console.WriteLine("Form Page is opened");
+        }
+
+        public string GetTitle()
+        {
+            return TITLE;
         }
     }
 }

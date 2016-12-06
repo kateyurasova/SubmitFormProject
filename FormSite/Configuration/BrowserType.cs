@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FormSite.Pages
+namespace FormSite.Configuration
 {
-    class AbstractPage
+    public enum BrowserType
     {
-        public abstract void OpenPage();
+        FIREFOX,
+        CHROME,
+        IEXPLORER
     }
 }

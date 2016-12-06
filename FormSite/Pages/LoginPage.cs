@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FormSite.Pages
 {
-    class LoginPage : AbstractPage
+    class LoginPage : BasePage
     {
         private const string BASE_URL = "https://fs28.formsite.com/esDR1H/form1/index.html";
         private IWebDriver driver;
@@ -25,15 +25,17 @@ namespace FormSite.Pages
             PageFactory.InitElements(this.driver, this);
         }
 
-        public override void OpenPage()
+        public void OpenPage()
         {
             driver.Navigate().GoToUrl(BASE_URL);
+            Console.WriteLine("Login Page is opened");
         }
 
-        public void login(String password)
+        public FormPage Login(String password)
         {
             passwordInput.SendKeys(password);
             submitButton.Click();
+            return new FormPage(driver);
         }
     }
 }
