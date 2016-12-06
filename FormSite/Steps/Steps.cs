@@ -24,12 +24,12 @@ namespace FormSite.Steps
             Driver.DriverInstance.CloseBrowser();
         }
 
-        public FormPage LoginFormSite(String password)
+        public void LoginFormSite(String password)
         {
             logger.Info("Log in to Web Form Site");
             Pages.LoginPage loginPage = new Pages.LoginPage(driver);
             loginPage.OpenPage();
-            return loginPage.Login(password);
+            loginPage.Login(password);
         }
 
         public bool IsLoggedIn()

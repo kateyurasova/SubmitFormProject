@@ -15,6 +15,9 @@ namespace FormSite.Pages
         [FindsBy(How = How.XPath, Using = "//div[@id='success_body']/span")]
         private IWebElement responseSpan;
 
+        [FindsBy(How = How.XPath, Using = "//div[@id='extraInfo']/span")]
+        private IWebElement referenceNumberSpan;
+
         public SuccessPage(IWebDriver driver)
         {
             this.driver = driver;
@@ -24,6 +27,11 @@ namespace FormSite.Pages
         public string GetResponseText()
         {
             return responseSpan.Text;
+        }
+
+        public String GetReferenceNumber()
+        {
+           return referenceNumberSpan.Text.Substring(13);
         }
 
 

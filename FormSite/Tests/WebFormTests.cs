@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using FormSite.API;
+using FormSite.Driver;
 using FormSite.Pages;
 using FormSite.Utils;
 
@@ -27,6 +28,7 @@ namespace FormSite
         public void Init()
         {
             steps.InitBrowser();
+            steps.LoginFormSite(PASSWORD);
         }
 
         [TearDown]
@@ -39,7 +41,7 @@ namespace FormSite
         public void submitDataTest()
         {
             // GIVEN: User logs into the Web Site
-            Pages.FormPage formPage = steps.LoginFormSite(PASSWORD);
+            Pages.FormPage formPage = new FormPage(DriverInstance.GetInstance());
 
             // WHEN: User fills in the form and perform Submit on the page
             string firstname = "firstname" + Utils.RandomGenerator.GetRandomString(50);
@@ -56,13 +58,20 @@ namespace FormSite
                 Equals("Your form has been successfully submitted. Thank you for your time."));
 
             // AND: Data received from API contains submitted values
-            fs_responseResultsResult currentTestResult = new APIUtils().getCurrentTestResult();
+            fs_responseResultsResult currentTestResult = new APIUtils().
+                getResultByReferenceNumber(successPage.GetReferenceNumber());
 
-            Assert.AreEqual(currentTestResult.items[FIRSTNAME_INDEX].value, firstname);
-            Assert.AreEqual(currentTestResult.items[LASTNAME_INDEX].value, lastname );
-            Assert.AreEqual(currentTestResult.items[EMAIL_INDEX].value, email);
-            Assert.AreEqual(currentTestResult.items[DATE_INDEX].value, date);
-            Assert.AreEqual(currentTestResult.items[INTEREST_DESCRIPTION_INDEX].value, interestDescription);
+            Assert.NotNull(currentTestResult, "Response does not contain submitted data");
+            Assert.AreEqual(currentTestResult.items[FIRSTNAME_INDEX].value, firstname,
+                "FistName is incorrect");
+            Assert.AreEqual(currentTestResult.items[LASTNAME_INDEX].value, lastname,
+                "Lastname is incorrect");
+            Assert.AreEqual(currentTestResult.items[EMAIL_INDEX].value, email,
+                "Email is incorrect");
+            Assert.AreEqual(currentTestResult.items[DATE_INDEX].value, date,
+                "Date is incorrect");
+            Assert.AreEqual(currentTestResult.items[INTEREST_DESCRIPTION_INDEX].value, interestDescription,
+                "Interest Description is incorrect");
 
         }
     }

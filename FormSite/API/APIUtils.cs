@@ -12,26 +12,35 @@ namespace FormSite.API
     class APIUtils
     {
         private const int currentTestResultIndex = 0;
-        public fs_responseResultsResult getCurrentTestResult()
+        public fs_responseResultsResult getResultByReferenceNumber(String referenceNumber)
         {
 
             try
             {
-                //Create the REST Services 'Find Location by Query' request
-                //XmlDocument testResultsResponse = WSManager.MakeRequest();
-
-                //Stream stream = new MemoryStream();
-                //testResultsResponse.Save(WSManager.MakeRequest());
                 XmlSerializer serializer = new XmlSerializer(typeof(fs_response));
                 fs_response resultingMessage = (fs_response)serializer.Deserialize(WSManager.MakeRequest());
-                return resultingMessage.results[currentTestResultIndex];
+                foreach (var  result in resultingMessage.results)
+                {
+                    if (result.id.Equals(referenceNumber))
+                    {
+                        return result;
+                    }
+                }
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.Read();
-                return null;
             }
+            return null;
         }
+
+
+
+
+
+
+
     }
 }
