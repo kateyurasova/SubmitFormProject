@@ -87,10 +87,10 @@ namespace FormSite
             // GIVEN: User goes to Web Site Form
             Pages.SubmitFormPage submitFormPage = new SubmitFormPage();
 
-            // WHEN: User fills in the form and perform Submit on the page
+            // WHEN: User does not fill in lastname and perform Submit on the page
             submitFormPage.SubmitData(firstname, "", email, date, interestDescription);
 
-            // THEN: Text about successfull submit is presented on the page
+            // THEN: "Response Required" warning message is presented for lastname field
             Assert.AreEqual(submitFormPage.GetRequiredFieldsWarningText(), 
                 "Please review the form and correct the highlighted items.");
 
@@ -111,10 +111,10 @@ namespace FormSite
             // GIVEN: User goes to Web Site Form
             Pages.SubmitFormPage submitFormPage = new SubmitFormPage();
 
-            // WHEN: User fills in the form and perform Submit on the page
+            // WHEN: User does not fill in firstname and perform Submit on the page
             submitFormPage.SubmitData("", lastname, email, date, interestDescription);
 
-            // THEN: Text about successfull submit is presented on the page
+            // THEN: "Response Required" warning message is presented for firstname field
             Assert.AreEqual(submitFormPage.GetFirstNameWarningText(),
                            "Response Required");
 

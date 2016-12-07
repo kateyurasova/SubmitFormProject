@@ -32,42 +32,31 @@ namespace FormSite.Driver
 
         public static void CloseBrowser()
         {
-            //driver.Close();
-            //driver.Quit();
-
-            foreach (Process p in System.Diagnostics.Process.GetProcessesByName("Firefox"))
+            switch (Configuration.Configuration.ReadBrowserTypeFromConfig())
             {
-                try
+                case BrowserType.FIREFOX:
                 {
-                    p.Kill();
-                    p.WaitForExit(); // possibly with a timeout
-                }
-                catch (Win32Exception winException)
-                {
-                    // process was terminating or can't be terminated - deal with it
-                }
-                catch (InvalidOperationException invalidException)
-                {
-                    // process has already exited - might be able to let this one go
-                }
-            }
+                    foreach (Process p in System.Diagnostics.Process.
+                        GetProcessesByName("Firefox"))
+                    {
+                        p.Kill();
+                        p.WaitForExit(); // possibly with a timeou
 
-
-            foreach (Process p in System.Diagnostics.Process.GetProcessesByName("geckodriver.exe"))
-            {
-                try
-                {
-                    p.Kill();
-                    p.WaitForExit(); // possibly with a timeout
+                    }
+                    foreach (Process p in System.Diagnostics.Process.
+                        GetProcessesByName("geckodriver.exe"))
+                    {
+                        p.Kill();
+                        p.WaitForExit();
+                    }
                 }
-                catch (Win32Exception winException)
-                {
-                    // process was terminating or can't be terminated - deal with it
-                }
-                catch (InvalidOperationException invalidException)
-                {
-                    // process has already exited - might be able to let this one go
-                }
+                break;
+                /*case BrowserType.CHROME:
+                    driver.Quit();
+                    break;
+                case BrowserType.IEXPLORER:
+                    driver.Quit();
+                    break;*/
             }
             driver.Quit();
             driver = null;
