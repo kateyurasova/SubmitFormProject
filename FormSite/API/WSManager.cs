@@ -24,8 +24,8 @@ namespace FormSite.API
                 HttpWebRequest request = WebRequest.Create(API_URL) as HttpWebRequest;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
-                StreamReader resStream = new StreamReader(response.GetResponseStream(), 
-                    Encoding.GetEncoding("ISO-8859-1"));
+                StreamReader resStream = new StreamReader(response.GetResponseStream()); 
+                    //Encoding.GetEncoding("ISO-8859-1"));
 
                 return resStream.BaseStream;
             }

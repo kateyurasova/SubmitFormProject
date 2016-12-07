@@ -58,7 +58,7 @@ namespace FormSite.Pages
             return BASE_URL;
         }
 
-        public SuccessPage SubmitData(String firstname, String lastname, String emailAddress,
+        public void SubmitData(String firstname, String lastname, String emailAddress,
             String date, String intrestDescription)
         {
             firstnameInput.SendKeys(firstname);
@@ -67,7 +67,6 @@ namespace FormSite.Pages
             dateInput.SendKeys(date);
             interestsTextArea.SendKeys(intrestDescription);
             submitButton.Click();
-            return new SuccessPage(driver);
         }
 
         public void OpenPage(String url)

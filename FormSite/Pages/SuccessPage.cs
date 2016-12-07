@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FormSite.Driver;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
@@ -21,6 +22,12 @@ namespace FormSite.Pages
         public SuccessPage(IWebDriver driver)
         {
             this.driver = driver;
+            PageFactory.InitElements(this.driver, this);
+        }
+
+        public SuccessPage()
+        {
+            this.driver = DriverInstance.GetInstance();
             PageFactory.InitElements(this.driver, this);
         }
 

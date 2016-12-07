@@ -51,9 +51,11 @@ namespace FormSite
             Pages.SubmitFormPage submitFormPage = new SubmitFormPage();
 
             // WHEN: User fills in the form and perform Submit on the page
-            SuccessPage successPage = submitFormPage.SubmitData(firstname, lastname, email, date, interestDescription);
-                
-            // THEN: Text about successfull submit is presented on the page
+            submitFormPage.SubmitData(firstname, lastname, email, date, interestDescription);
+
+            // THEN: Success Page is loaded
+            SuccessPage successPage = new SuccessPage();
+            // AND: Success Page contains message about successful submittion
             Assert.True(successPage.GetResponseText().
                 Equals("Your form has been successfully submitted. Thank you for your time."));
 
@@ -76,7 +78,7 @@ namespace FormSite
         }
 
         [Test, Description("Negative Test: User does not enter lastname - Response Required should be presented")]
-        public void firstNameWarningMessageTest()
+        public void firstNameRequiredTest()
         {
             // SETUP: Generate Testing Data
             string firstname = "firstname" + Utils.RandomGenerator.GetRandomString(50);
@@ -101,7 +103,7 @@ namespace FormSite
         }
 
         [Test, Description("Negative Test: User does not enter firstname - Response Required should be presented")]
-        public void requiredFieldsWarningMessageTest()
+        public void lastNameRequiredTest()
         {
             // SETUP: Generate Testing Data
             string lastname = "lastname" + Utils.RandomGenerator.GetRandomString(50);
@@ -114,6 +116,10 @@ namespace FormSite
 
             // WHEN: User does not fill in firstname and perform Submit on the page
             submitFormPage.SubmitData("", lastname, email, date, interestDescription);
+
+            // THEN: Common warning message is presented on the Login page
+            Assert.AreEqual(submitFormPage.GetRequiredFieldsWarningText(),
+                "Please review the form and correct the highlighted items.");
 
             // THEN: "Response Required" warning message is presented for firstname field
             Assert.AreEqual(submitFormPage.GetFirstNameWarningText(),
