@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using FormSite.Driver;
+using OpenQA.Selenium.Support.UI;
 
 namespace FormSite.Pages
 {
@@ -39,14 +40,14 @@ namespace FormSite.Pages
         {
             driver.Navigate().GoToUrl(BASE_URL);
             driver.Navigate().GoToUrl(BASE_URL);
-            Console.WriteLine("Login Page is opened");
+            // Console.WriteLine("Login Page is opened");
         }
 
         public void Login(String password)
         {
             passwordInput.SendKeys(password);
             submitButton.Click();
-            Thread.Sleep(1000);
+            WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
         }
 
         public string getTitle()

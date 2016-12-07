@@ -15,12 +15,11 @@ namespace FormSite.Configuration
             {
                 var appSettings = ConfigurationManager.AppSettings;
                 string result = appSettings[key] ?? "Not Found";
-                Console.WriteLine(result);
                 return result;
             }
             catch (ConfigurationErrorsException)
             {
-                Console.WriteLine("Error reading app settings");
+                // Console.WriteLine("Error reading app settings");
                 return null;
             }
         }

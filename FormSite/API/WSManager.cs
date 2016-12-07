@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using FormSite.Driver;
+using log4net;
 
 namespace FormSite.API
 {
@@ -13,9 +15,9 @@ namespace FormSite.API
     {
         private const string API_URL = 
             "https://fs28.formsite.com/api/users/esDR1H/forms/form1/results?fs_api_key=zvucTDw1ZXt0&fs_include_headings";
+        private static readonly ILog logger = LogManager.GetLogger(typeof(DriverInstance));
 
-
-      public static Stream MakeRequest()
+        public static Stream MakeRequest()
         {
             try
             {
@@ -38,9 +40,9 @@ namespace FormSite.API
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                Console.Read();
+                // Console.WriteLine(e.Message);
+                //Console.Read();
+                logger.Warn("Unable to get the data from API", e);
                 return null;
             }
         }

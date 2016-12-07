@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FormSite.Driver;
 using OpenQA.Selenium;
@@ -37,11 +38,13 @@ namespace FormSite.Pages
 
         public string getErrorTitle()
         {
+            DriverInstance.FindElement(By.ClassName("segment_header"), 10);
             return errorTitleDiv.Text;
         }
 
         public string getErrorMessage()
         {
+            DriverInstance.FindElement(By.LinkText("Go Back"), 10);
             return errorResponseSpan.Text;
         }
 

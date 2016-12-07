@@ -77,7 +77,7 @@ namespace FormSite.Pages
         public void OpenPage(String url)
         {
             driver.Navigate().GoToUrl(BASE_URL);
-            Console.WriteLine("Form Page is opened");
+            //Console.WriteLine("Form Page is opened");
         }
 
         public string GetTitle()

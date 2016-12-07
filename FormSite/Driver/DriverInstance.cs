@@ -7,6 +7,7 @@ using log4net;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Support.UI;
 
 namespace FormSite.Driver
 {
@@ -71,6 +72,17 @@ namespace FormSite.Driver
             }
 
             return driver;
+        }
+
+        public static IWebElement FindElement(By by, int timeoutInSeconds)
+        {
+            IWebDriver webDriver = GetInstance();
+            if (timeoutInSeconds > 0)
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                return wait.Until(drv => drv.FindElement(by));
+            }
+            return driver.FindElement(by);
         }
     }
 }
