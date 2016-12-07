@@ -1,11 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using FormSite.Driver;
 using log4net;
 
@@ -15,6 +10,7 @@ namespace FormSite.Pages
     {
         private const string BASE_URL = "https://fs28.formsite.com/esDR1H/form1/index.html";
         private const string TITLE = "James' form";
+        private static readonly ILog logger = LogManager.GetLogger(typeof(SubmitFormPage));
         private IWebDriver driver;
 
         [FindsBy(How = How.Id, Using = "RESULT_TextField-0")]
@@ -77,8 +73,8 @@ namespace FormSite.Pages
         public void OpenPage(String url)
         {
             driver.Navigate().GoToUrl(BASE_URL);
-            //Console.WriteLine("Form Page is opened");
-        }
+            logger.Info("Submit Form page is opened");
+         }
 
         public string GetTitle()
         {

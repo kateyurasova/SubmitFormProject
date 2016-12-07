@@ -28,20 +28,9 @@ namespace FormSite.API
                     Encoding.GetEncoding("ISO-8859-1"));
 
                 return resStream.BaseStream;
-                /*XmlDocument xmlDoc = new XmlDocument();
-
-                XmlDeclaration xmldecl;
-                xmldecl = xmlDoc.CreateXmlDeclaration("1.0", null, null);
-                xmldecl.Encoding = "ISO-8859-1";
-
-                xmlDoc.Load(response.GetResponseStream());
-                return (xmlDoc);*/
-
             }
             catch (Exception e)
             {
-                // Console.WriteLine(e.Message);
-                //Console.Read();
                 logger.Warn("Unable to get the data from API", e);
                 return null;
             }

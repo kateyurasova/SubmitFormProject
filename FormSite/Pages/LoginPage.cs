@@ -1,19 +1,16 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using FormSite.Driver;
 using OpenQA.Selenium.Support.UI;
+using log4net;
 
 namespace FormSite.Pages
 {
     class LoginPage : BasePage
     {
         private const string BASE_URL = "https://fs28.formsite.com/esDR1H/form1/index.html";
+        private static readonly ILog logger = LogManager.GetLogger(typeof(LoginPage));
         private IWebDriver driver;
 
         private const string TITLE = "James' form";
@@ -39,8 +36,7 @@ namespace FormSite.Pages
         public void OpenPage()
         {
             driver.Navigate().GoToUrl(BASE_URL);
-            driver.Navigate().GoToUrl(BASE_URL);
-            // Console.WriteLine("Login Page is opened");
+            logger.Info("Login page is opened");
         }
 
         public void Login(String password)
@@ -50,7 +46,7 @@ namespace FormSite.Pages
             WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
         }
 
-        public string getTitle()
+        public string GetTitle()
         {
             return TITLE;
         }

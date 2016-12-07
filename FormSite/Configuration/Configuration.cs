@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using log4net;
 
 namespace FormSite.Configuration
 {
     public class Configuration
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Configuration));
+
         public static string GetProjectConfig(string key)
         {
             try
@@ -17,9 +20,9 @@ namespace FormSite.Configuration
                 string result = appSettings[key] ?? "Not Found";
                 return result;
             }
-            catch (ConfigurationErrorsException)
+            catch (ConfigurationErrorsException e)
             {
-                // Console.WriteLine("Error reading app settings");
+                logger.Warn("Unable to find" + key + " in App.config", e);
                 return null;
             }
         }

@@ -14,7 +14,7 @@ namespace FormSite.API
     class APIUtils
     {
         private const int currentTestResultIndex = 0;
-        private static readonly ILog logger = LogManager.GetLogger(typeof(DriverInstance));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(APIUtils));
 
         public fs_responseResultsResult getResultByReferenceNumber(String referenceNumber)
         {
@@ -34,8 +34,6 @@ namespace FormSite.API
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e.Message);
-                //Console.Read();
                 logger.Warn("Unable to get result by Reference Id", e);
             }
             return null;

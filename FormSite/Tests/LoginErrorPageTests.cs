@@ -45,7 +45,7 @@ namespace FormSite.Tests
 
             // AND: User may return to Login page using Go Back link
             loginPage = loginErrorPage.returnToLoginPage();
-            Assert.AreEqual(loginPage.getTitle(), "James' form");
+            Assert.AreEqual(loginPage.GetTitle(), "James' form");
         }
     }
 }

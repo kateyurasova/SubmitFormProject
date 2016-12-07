@@ -90,10 +90,11 @@ namespace FormSite
             // WHEN: User does not fill in lastname and perform Submit on the page
             submitFormPage.SubmitData(firstname, "", email, date, interestDescription);
 
-            // THEN: "Response Required" warning message is presented for lastname field
+            // THEN: Common warning message is presented on the Login page
             Assert.AreEqual(submitFormPage.GetRequiredFieldsWarningText(), 
                 "Please review the form and correct the highlighted items.");
 
+            // AND: "Response Required" warning message is presented for lastname field
             Assert.AreEqual(submitFormPage.GetLastnameWarningText(),
                            "Response Required");
 
