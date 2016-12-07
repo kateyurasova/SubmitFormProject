@@ -1,12 +1,9 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FormSite.Configuration;
+using log4net;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -16,7 +13,8 @@ namespace FormSite.Driver
     class DriverInstance
     {
         private static IWebDriver driver;
-
+        private static readonly ILog logger = LogManager.GetLogger(typeof(DriverInstance));
+       
         private DriverInstance() { }
 
         public static IWebDriver GetInstance()
@@ -38,25 +36,19 @@ namespace FormSite.Driver
                 {
                     foreach (Process p in System.Diagnostics.Process.
                         GetProcessesByName("Firefox"))
-                    {
-                        p.Kill();
-                        p.WaitForExit(); // possibly with a timeou
-
-                    }
-                    foreach (Process p in System.Diagnostics.Process.
-                        GetProcessesByName("geckodriver.exe"))
-                    {
-                        p.Kill();
-                        p.WaitForExit();
-                    }
+                        {
+                            try
+                            {
+                                p.Kill();
+                                p.WaitForExit();
+                            }
+                            catch (Exception exception)
+                            {
+                                logger.Warn("Unable to terminate Firefox process", exception);
+                            }
+                        }
+                        break;
                 }
-                break;
-                /*case BrowserType.CHROME:
-                    driver.Quit();
-                    break;
-                case BrowserType.IEXPLORER:
-                    driver.Quit();
-                    break;*/
             }
             driver.Quit();
             driver = null;
