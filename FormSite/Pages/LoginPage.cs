@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FormSite.Driver;
 
@@ -45,6 +46,7 @@ namespace FormSite.Pages
         {
             passwordInput.SendKeys(password);
             submitButton.Click();
+            Thread.Sleep(1000);
         }
 
         public string getTitle()

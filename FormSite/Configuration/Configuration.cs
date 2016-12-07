@@ -7,9 +7,9 @@ using System.Configuration;
 
 namespace FormSite.Configuration
 {
-    class Configuration
+    public class Configuration
     {
-        private static string GetProjectConfig(string key)
+        public static string GetProjectConfig(string key)
         {
             try
             {

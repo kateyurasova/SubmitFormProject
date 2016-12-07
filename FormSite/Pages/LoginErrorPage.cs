@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace FormSite.Pages
 {
-    class LoginErrorPage
+    class LoginErrorPage : BasePage
     {
         private IWebDriver driver;
 
