@@ -31,9 +31,7 @@ namespace FormSite.Pages
 
         public String GetReferenceNumber()
         {
-           return referenceNumberSpan.Text.Substring(13);
+           return new String(referenceNumberSpan.Text.Where(Char.IsDigit).ToArray());
         }
-
-
     }
 }
