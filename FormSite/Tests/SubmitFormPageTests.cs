@@ -1,14 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using FormSite.API;
-using FormSite.Driver;
 using FormSite.Pages;
-using FormSite.Utils;
 
 namespace FormSite
 {
@@ -38,7 +30,7 @@ namespace FormSite
         }
 
         [Test, Description("Positive Test: User submit the Data on the form - Data should be saved")]
-        public void submitDataTest()
+        public void SubmitDataTest()
         {
             //SETUP: Generate testing data
             string firstname = "firstname" + Utils.RandomGenerator.GetRandomString(50);
@@ -61,7 +53,7 @@ namespace FormSite
 
             // AND: Data received from API contains submitted values
             fs_responseResultsResult currentTestResult = new APIUtils().
-                getResultByReferenceNumber(successPage.GetReferenceNumber());
+                GetResultByReferenceNumber(successPage.GetReferenceNumber());
 
             Assert.NotNull(currentTestResult, "Response does not contain submitted data");
             Assert.AreEqual(currentTestResult.items[FIRSTNAME_INDEX].value, firstname,
@@ -78,7 +70,7 @@ namespace FormSite
         }
 
         [Test, Description("Negative Test: User does not enter lastname - Response Required should be presented")]
-        public void firstNameRequiredTest()
+        public void FirstNameRequiredTest()
         {
             // SETUP: Generate Testing Data
             string firstname = "firstname" + Utils.RandomGenerator.GetRandomString(50);
@@ -103,7 +95,7 @@ namespace FormSite
         }
 
         [Test, Description("Negative Test: User does not enter firstname - Response Required should be presented")]
-        public void lastNameRequiredTest()
+        public void LastNameRequiredTest()
         {
             // SETUP: Generate Testing Data
             string lastname = "lastname" + Utils.RandomGenerator.GetRandomString(50);

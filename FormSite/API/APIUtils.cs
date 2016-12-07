@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Serialization;
-using FormSite.Driver;
 using log4net;
 
 namespace FormSite.API
@@ -16,7 +9,7 @@ namespace FormSite.API
         private const int currentTestResultIndex = 0;
         private static readonly ILog logger = LogManager.GetLogger(typeof(APIUtils));
 
-        public fs_responseResultsResult getResultByReferenceNumber(String referenceNumber)
+        public fs_responseResultsResult GetResultByReferenceNumber(String referenceNumber)
         {
 
             try

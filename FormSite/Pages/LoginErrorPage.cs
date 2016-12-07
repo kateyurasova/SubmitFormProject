@@ -30,19 +30,21 @@ namespace FormSite.Pages
             PageFactory.InitElements(this.driver, this);
         }
 
-        public string getErrorTitle()
+        public string GetErrorTitle()
         {
-            DriverInstance.FindElement(By.ClassName("segment_header"), 10);
+            DriverInstance.FindElement(By.ClassName("segment_header"),
+                 Configuration.Configuration.GetTimeOut());
             return errorTitleDiv.Text;
         }
 
-        public string getErrorMessage()
+        public string GetErrorMessage()
         {
-            DriverInstance.FindElement(By.LinkText("Go Back"), 10);
+            DriverInstance.FindElement(By.LinkText("Go Back"),
+                Configuration.Configuration.GetTimeOut());
             return errorResponseSpan.Text;
         }
 
-        public LoginPage returnToLoginPage()
+        public LoginPage ReturnToLoginPage()
         {
             goBackLink.Click();
             return new LoginPage();

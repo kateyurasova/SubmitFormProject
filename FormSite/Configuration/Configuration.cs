@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using log4net;
 
@@ -42,6 +38,11 @@ namespace FormSite.Configuration
                     return BrowserType.FIREFOX;
                     break;
             }
+        }
+
+        public static int GetTimeOut()
+        {
+            return Int32.Parse(GetProjectConfig("TimeoutSeconds"));
         }
     }
 }

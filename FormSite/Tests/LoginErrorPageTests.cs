@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using FormSite.Driver;
-using FormSite.Pages;
+﻿using FormSite.Pages;
 using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace FormSite.Tests
 {
@@ -39,12 +31,12 @@ namespace FormSite.Tests
             // THEN: Error page with text message appears
             LoginErrorPage loginErrorPage = new LoginErrorPage();
 
-            Assert.AreEqual(loginErrorPage.getErrorMessage(), 
+            Assert.AreEqual(loginErrorPage.GetErrorMessage(), 
                 "Incorrect Password. Please try again.");
-            Assert.AreEqual(loginErrorPage.getErrorTitle(), "An error has occurred");
+            Assert.AreEqual(loginErrorPage.GetErrorTitle(), "An error has occurred");
 
             // AND: User may return to Login page using Go Back link
-            loginPage = loginErrorPage.returnToLoginPage();
+            loginPage = loginErrorPage.ReturnToLoginPage();
             Assert.AreEqual(loginPage.GetTitle(), "James' form");
         }
     }
