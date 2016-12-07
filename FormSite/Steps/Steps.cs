@@ -34,7 +34,7 @@ namespace FormSite.Steps
 
         public bool IsLoggedIn()
         {
-            return driver.Title.Equals(value: new FormPage(driver).GetTitle());
+            return driver.Title.Equals(value: new SubmitFormPage(driver).GetTitle());
         }
     }
 }

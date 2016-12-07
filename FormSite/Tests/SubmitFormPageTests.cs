@@ -13,7 +13,7 @@ using FormSite.Utils;
 namespace FormSite
 {
     [TestFixture]
-    public class WebFormTests
+    public class SubmitFormPageTests
     {
         private Steps.Steps steps = new Steps.Steps();
         private const string PASSWORD = "secret";
@@ -40,18 +40,18 @@ namespace FormSite
         [Test, Description("Positive Test: User submit the Data on the form - Data should be saved")]
         public void submitDataTest()
         {
-            // GIVEN: User logs into the Web Site
-            Pages.FormPage formPage = new FormPage(DriverInstance.GetInstance());
-
-            // WHEN: User fills in the form and perform Submit on the page
+            //SETUP: Generate testing data
             string firstname = "firstname" + Utils.RandomGenerator.GetRandomString(50);
             string lastname = "lastname" + Utils.RandomGenerator.GetRandomString(50);
             string email = "email" + Utils.RandomGenerator.GetRandomString(10) + "@gmail.com";
             string date = "2016-12-01";
             string interestDescription = "interestDescription" + Utils.RandomGenerator.GetRandomString(100);
 
+            // GIVEN: User logs into the Web Site
+            Pages.SubmitFormPage submitFormPage = new SubmitFormPage();
 
-            SuccessPage successPage = formPage.SubmitData(firstname, lastname, email, date, interestDescription);
+            // WHEN: User fills in the form and perform Submit on the page
+            SuccessPage successPage = submitFormPage.SubmitData(firstname, lastname, email, date, interestDescription);
                 
             // THEN: Text about successfull submit is presented on the page
             Assert.True(successPage.GetResponseText().
@@ -72,6 +72,51 @@ namespace FormSite
                 "Date is incorrect");
             Assert.AreEqual(currentTestResult.items[INTEREST_DESCRIPTION_INDEX].value, interestDescription,
                 "Interest Description is incorrect");
+
+        }
+
+        [Test, Description("Negative Test: User does not enter lastname - Response Required should be presented")]
+        public void firstNameWarningMessageTest()
+        {
+            // SETUP: Generate Testing Data
+            string firstname = "firstname" + Utils.RandomGenerator.GetRandomString(50);
+            string email = "email" + Utils.RandomGenerator.GetRandomString(10) + "@gmail.com";
+            string date = "2016-12-01";
+            string interestDescription = "interestDescription" + Utils.RandomGenerator.GetRandomString(100);
+
+            // GIVEN: User goes to Web Site Form
+            Pages.SubmitFormPage submitFormPage = new SubmitFormPage();
+
+            // WHEN: User fills in the form and perform Submit on the page
+            submitFormPage.SubmitData(firstname, "", email, date, interestDescription);
+
+            // THEN: Text about successfull submit is presented on the page
+            Assert.AreEqual(submitFormPage.GetRequiredFieldsWarningText(), 
+                "Please review the form and correct the highlighted items.");
+
+            Assert.AreEqual(submitFormPage.GetLastnameWarningText(),
+                           "Response Required");
+
+        }
+
+        [Test, Description("Negative Test: User does not enter firstname - Response Required should be presented")]
+        public void requiredFieldsWarningMessageTest()
+        {
+            // SETUP: Generate Testing Data
+            string lastname = "lastname" + Utils.RandomGenerator.GetRandomString(50);
+            string email = "email" + Utils.RandomGenerator.GetRandomString(10) + "@gmail.com";
+            string date = "2016-12-01";
+            string interestDescription = "interestDescription" + Utils.RandomGenerator.GetRandomString(100);
+
+            // GIVEN: User goes to Web Site Form
+            Pages.SubmitFormPage submitFormPage = new SubmitFormPage();
+
+            // WHEN: User fills in the form and perform Submit on the page
+            submitFormPage.SubmitData("", lastname, email, date, interestDescription);
+
+            // THEN: Text about successfull submit is presented on the page
+            Assert.AreEqual(submitFormPage.GetFirstNameWarningText(),
+                           "Response Required");
 
         }
     }

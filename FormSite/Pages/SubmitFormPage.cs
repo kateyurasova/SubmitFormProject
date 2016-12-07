@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FormSite.Driver;
 using log4net;
 
 namespace FormSite.Pages
 {
-    class FormPage : BasePage
+    class SubmitFormPage : BasePage
     {
         private const string BASE_URL = "https://fs28.formsite.com/esDR1H/form1/index.html";
         private const string TITLE = "James' form";
@@ -34,9 +35,25 @@ namespace FormSite.Pages
         [FindsBy(How = How.Id, Using = "FSsubmit")]
         private IWebElement submitButton;
 
-        public FormPage(IWebDriver driver)
+        [FindsBy(How = How.XPath, Using = "//div[@class='form_table invalid']/div")]
+        private IWebElement requiredFieldsWarningDiv;
+
+        [FindsBy(How = How.XPath, Using = "//input[@name='RESULT_TextField-1']/following-sibling::div")]
+        private IWebElement lastnameWarningDiv;
+
+        [FindsBy(How = How.XPath, Using = "//input[@name='RESULT_TextField-0']/following-sibling::div")]
+        private IWebElement firstnameWarningDiv;
+
+
+        public SubmitFormPage(IWebDriver driver)
         {
             this.driver = driver;
+            PageFactory.InitElements(this.driver, this);
+        }
+
+        public SubmitFormPage()
+        {
+            this.driver = DriverInstance.GetInstance();
             PageFactory.InitElements(this.driver, this);
         }
 
@@ -66,6 +83,21 @@ namespace FormSite.Pages
         public string GetTitle()
         {
             return TITLE;
+        }
+
+        public string GetRequiredFieldsWarningText()
+        {
+            return requiredFieldsWarningDiv.Text;
+        }
+
+        public string GetLastnameWarningText()
+        {
+            return lastnameWarningDiv.Text;
+        }
+
+        public string GetFirstNameWarningText()
+        {
+            return firstnameWarningDiv.Text;
         }
     }
 }

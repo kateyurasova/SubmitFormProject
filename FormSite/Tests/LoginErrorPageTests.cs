@@ -12,7 +12,7 @@ using OpenQA.Selenium;
 namespace FormSite.Tests
 {
     [TestFixture]
-    class LoginTests
+    class LoginErrorPageTests
     {
         private Steps.Steps steps = new Steps.Steps();
         private const string INCORRECT_PASSWORD = "secret1";
